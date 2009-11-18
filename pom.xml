@@ -92,16 +92,12 @@
     <dependency>
       <groupId>com.davidsoergel</groupId>
       <artifactId>dsutils</artifactId>
-      <version>1.02-SNAPSHOT</version>
-      <classifier>tests</classifier>
-      <scope>test</scope>
+      <version>1.01</version>
     </dependency>
     <dependency>
       <groupId>com.davidsoergel</groupId>
       <artifactId>stats</artifactId>
       <version>0.9-SNAPSHOT</version>
-      <classifier>tests</classifier>
-      <scope>test</scope>
     </dependency>
   </dependencies>
 
