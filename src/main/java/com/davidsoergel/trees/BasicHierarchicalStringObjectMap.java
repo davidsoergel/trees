@@ -192,7 +192,7 @@ public class BasicHierarchicalStringObjectMap extends ListHierarchyNode<Map<Stri
 	/**
 	 * {@inheritDoc}
 	 */
-	public Collection<Object> values()
+	public Collection values()
 		{
 		return getPayload().values();
 		}
