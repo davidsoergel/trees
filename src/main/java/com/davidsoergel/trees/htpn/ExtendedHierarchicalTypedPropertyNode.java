@@ -21,7 +21,7 @@ public interface ExtendedHierarchicalTypedPropertyNode<K extends Comparable, V, 
 
 	void setDefaultAndNullable(V defaultValue, boolean isNullable) throws HierarchicalPropertyNodeException;
 
-	void useDefaultValueIfNeeded() throws HierarchicalPropertyNodeException;
+	boolean useDefaultValueIfNeeded() throws HierarchicalPropertyNodeException;
 
 	void defaultValueSanityChecks() throws HierarchicalPropertyNodeException;
 
@@ -62,4 +62,6 @@ public interface ExtendedHierarchicalTypedPropertyNode<K extends Comparable, V, 
 	H getChild(K key);
 
 //	void setNonDefault();
+
+//	K getKeyForChild(ExtendedHierarchicalTypedPropertyNode<K, V, ?> child);
 	}

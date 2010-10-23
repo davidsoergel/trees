@@ -34,6 +34,7 @@ package com.davidsoergel.trees.htpn;
 
 import com.davidsoergel.dsutils.DSStringUtils;
 
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -64,7 +65,7 @@ public class MapToHierarchicalTypedPropertyNodeAdapter
 	 *
 	 * @param rootProperties
 	 */
-	public static void mergeInto(HierarchicalTypedPropertyNode rootProperties, Map<String, Object> theMap)
+	public static void mergeInto(HierarchicalTypedPropertyNode rootProperties, Map<String, Serializable> theMap)
 			throws HierarchicalPropertyNodeException
 		{
 		for (String key : theMap.keySet())

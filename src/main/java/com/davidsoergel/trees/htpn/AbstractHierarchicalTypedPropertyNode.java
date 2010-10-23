@@ -65,6 +65,16 @@ public abstract class AbstractHierarchicalTypedPropertyNode<K extends Comparable
 
 	protected Map<K, H> childrenByName = new TreeMap<K, H>();
 
+	public Map<K, H> getChildrenByName()
+		{
+		return childrenByName;
+		}
+
+	public void setChildrenByName(final Map<K, H> childrenByName)
+		{
+		this.childrenByName = childrenByName;
+		}
+
 	public K getKey()
 		{
 		return payload == null ? null : payload.getKey1();
@@ -448,7 +458,7 @@ public abstract class AbstractHierarchicalTypedPropertyNode<K extends Comparable
 		}
 
 
-//private String programName;
+	//private String programName;
 
 
 /*	public H init(H parent, K key, V value, Type type) //throws HierarchicalPropertyNodeException

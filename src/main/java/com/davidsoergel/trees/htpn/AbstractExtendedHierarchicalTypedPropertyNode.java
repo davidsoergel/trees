@@ -38,7 +38,8 @@ public abstract class AbstractExtendedHierarchicalTypedPropertyNode<K extends Co
 	//private boolean trackContextName;
 
 	//private boolean namesSubConsumer;
-	private boolean isNullable = false;
+	private boolean isNullable = true;
+			// support assigning variables that don't have @Property, e.g. when inherited from a non-Jandified package
 
 	// allow for locking the value
 	protected boolean editable = true;
@@ -47,6 +48,7 @@ public abstract class AbstractExtendedHierarchicalTypedPropertyNode<K extends Co
 
 	private boolean obsolete = false;
 	private boolean changed = false;
+
 
 	public void copyFrom(
 			final ExtendedHierarchicalTypedPropertyNode<K, V, ?> node) //throws HierarchicalPropertyNodeException
@@ -119,8 +121,10 @@ public abstract class AbstractExtendedHierarchicalTypedPropertyNode<K extends Co
 			this.isNullable = isNullable;
 
 			// inheritValueIfNeeded();
-			useDefaultValueIfNeeded();
-			defaultValueSanityChecks();
+
+			// don't do these here; the inheritance/defaults pass will catch them
+			//	useDefaultValueIfNeeded();
+			//	defaultValueSanityChecks();
 			}
 		}
 
@@ -158,6 +162,7 @@ public abstract class AbstractExtendedHierarchicalTypedPropertyNode<K extends Co
 		}
 
 	// BAD editable is in place only for the sake of jandyApp2Tier
+
 	public boolean isEditable()
 		{
 		return editable;
@@ -458,14 +463,17 @@ public abstract class AbstractExtendedHierarchicalTypedPropertyNode<K extends Co
 		return isDefault;
 		}
 */
-	public void useDefaultValueIfNeeded() throws HierarchicalPropertyNodeException
+	public boolean useDefaultValueIfNeeded() throws HierarchicalPropertyNodeException
 		{
 		if (getValue() == null && !isNullable)
 			{
 			setValue(defaultValue);
+			return true;
 //			isDefault = true;
 			}
+		return false;
 		}
+
 
 	public H updateOrCreateChild(K childKey, V childValue)
 		{

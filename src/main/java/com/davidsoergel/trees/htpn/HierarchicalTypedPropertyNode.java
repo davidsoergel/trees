@@ -86,6 +86,7 @@ public interface HierarchicalTypedPropertyNode<K extends Comparable, V, H extend
 
 	Collection<H> getChildNodes();
 
+	Map<K, H> getChildrenByName();
 	//String getDefaultValueString();
 
 	Object[] getEnumOptions();
