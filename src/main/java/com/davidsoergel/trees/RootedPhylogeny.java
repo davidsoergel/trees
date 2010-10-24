@@ -207,7 +207,7 @@ public interface RootedPhylogeny<T extends Serializable> //, N extends Phylogeny
 	/**
 	 * Assigns equal weights to all of the leaf nodes, and normalizes them to sum to 1.
 	 */
-	void setLeafWeightsUniform() throws TreeException;// throws DistributionException;
+	void setLeafWeightsUniform();// throws TreeException;// throws DistributionException;
 
 	/**
 	 * Normalizes the leaf weights to sum to one, and propagates these up the tree.
