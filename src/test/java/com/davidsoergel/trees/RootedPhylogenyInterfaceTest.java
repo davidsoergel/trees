@@ -101,7 +101,7 @@ public class RootedPhylogenyInterfaceTest<T extends RootedPhylogeny>
 	public void randomizedLeafWeightsAreNormalized() throws Exception
 		{
 		RootedPhylogeny<Serializable> tmp = tif.createInstance();
-		tmp.randomizeLeafWeights(new UniformDistribution(0, 1));
+		tmp.setLeafWeightsRandom(new UniformDistribution(0, 1));
 		assert MathUtils.equalWithinFPError(tmp.getWeight(), 1);
 
 		double leafSum = 0;
@@ -154,12 +154,12 @@ public class RootedPhylogenyInterfaceTest<T extends RootedPhylogeny>
 		RootedPhylogeny<String> tree1 = baseTree.extractTreeWithLeafIDs(
 				DSCollectionUtils.setOf("aaaa", "ab", "baa", "bab", "bba", "bbba", "ca", "cb"), false, false,
 				AbstractRootedPhylogeny.MutualExclusionResolutionMode.EXCEPTION);
-		tree1.randomizeLeafWeights(new UniformDistribution(0, 1));
+		tree1.setLeafWeightsRandom(new UniformDistribution(0, 1));
 
 		RootedPhylogeny<String> tree2 = baseTree.extractTreeWithLeafIDs(
 				DSCollectionUtils.setOf("aaaa", "ab", "baa", "bab", "bba", "bbba", "ca", "cb"), false, false,
 				AbstractRootedPhylogeny.MutualExclusionResolutionMode.EXCEPTION);
-		tree2.randomizeLeafWeights(new UniformDistribution(0, 1));
+		tree2.setLeafWeightsRandom(new UniformDistribution(0, 1));
 
 		RootedPhylogeny<String> tree3 = tree1.mixWith(tree2, 0.1);
 
@@ -177,10 +177,10 @@ public class RootedPhylogenyInterfaceTest<T extends RootedPhylogeny>
 	public void weightMixingRequiresBaseTree() throws Exception
 		{
 		RootedPhylogeny<Serializable> tree1 = tif.createInstance();
-		tree1.randomizeLeafWeights(new UniformDistribution(0, 1));
+		tree1.setLeafWeightsRandom(new UniformDistribution(0, 1));
 
 		RootedPhylogeny<Serializable> tree2 = tif.createInstance();
-		tree2.randomizeLeafWeights(new UniformDistribution(0, 1));
+		tree2.setLeafWeightsRandom(new UniformDistribution(0, 1));
 
 		RootedPhylogeny<Serializable> tree3 = tree1.mixWith(tree2, 0.1);
 		}
@@ -189,11 +189,11 @@ public class RootedPhylogenyInterfaceTest<T extends RootedPhylogeny>
 	public void weightMixingRequiresSameBaseTree() throws Exception
 		{
 		RootedPhylogeny<Serializable> tree1 = tif.createInstance();
-		tree1.randomizeLeafWeights(new UniformDistribution(0, 1));
+		tree1.setLeafWeightsRandom(new UniformDistribution(0, 1));
 		tree1 = tree1.extractTreeWithLeafIDs(tree1.getLeafValues(), false, false);
 
 		RootedPhylogeny<Serializable> tree2 = tif.createInstance();
-		tree2.randomizeLeafWeights(new UniformDistribution(0, 1));
+		tree2.setLeafWeightsRandom(new UniformDistribution(0, 1));
 		tree2 = tree1.extractTreeWithLeafIDs(tree2.getLeafValues(), false, false);
 
 		RootedPhylogeny<Serializable> tree3 = tree1.mixWith(tree2, 0.1);

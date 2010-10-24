@@ -201,7 +201,7 @@ public interface RootedPhylogeny<T extends Serializable> //, N extends Phylogeny
 	 *
 	 * @param speciesAbundanceDistribution the ContinuousDistribution1D from which to sample leaf weights.
 	 */
-	void randomizeLeafWeights(
+	void setLeafWeightsRandom(
 			ContinuousDistribution1D speciesAbundanceDistribution);// throws TreeException;// throws DistributionException;
 
 	/**

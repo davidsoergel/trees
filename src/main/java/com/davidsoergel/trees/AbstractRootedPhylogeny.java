@@ -908,7 +908,7 @@ public abstract class AbstractRootedPhylogeny<T extends Serializable> implements
 	/**
 	 * {@inheritDoc}
 	 */
-	public void randomizeLeafWeights(
+	public void setLeafWeightsRandom(
 			ContinuousDistribution1D speciesAbundanceDistribution) //throws TreeException//throws DistributionException
 		{
 		for (PhylogenyNode<T> leaf : getLeaves())
