@@ -83,7 +83,7 @@ public class BasicRootedPhylogenyTest extends ContractTestAware<BasicRootedPhylo
 			{
 
 			rootPhylogeny.assignUniqueIds(namer);
-			rootPhylogeny.uniformizeLeafWeights();
+			rootPhylogeny.setLeafWeightsUniform();
 			}
 
 		public BasicRootedPhylogeny<String> getRootPhylogeny()

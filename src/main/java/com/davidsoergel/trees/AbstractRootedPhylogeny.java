@@ -930,7 +930,7 @@ public abstract class AbstractRootedPhylogeny<T extends Serializable> implements
 	/**
 	 * {@inheritDoc}
 	 */
-	public void uniformizeLeafWeights() // throws TreeException//throws DistributionException
+	public void setLeafWeightsUniform() // throws TreeException//throws DistributionException
 		{
 		for (PhylogenyNode<T> leaf : getLeaves())
 			{
