@@ -37,7 +37,7 @@
   <artifactId>trees</artifactId>
 
   <name>trees</name>
-  <version>1.01</version>
+  <version>1.02-SNAPSHOT</version>
   <url>http://dev.davidsoergel.com/trees</url>
   <description>Datastructures and utilities for manipulating trees</description>
 
@@ -57,8 +57,8 @@
   </issueManagement>
 
   <scm>
-    <connection>scm:svn:http://svn.davidsoergel.com/repos/trees/tags/trees-1.01</connection>
-    <developerConnection>scm:svn:svn+ssh://svn.davidsoergel.com/home/svn/repos-ds/trees/tags/trees-1.01
+    <connection>scm:svn:http://svn.davidsoergel.com/repos/trees/trunk</connection>
+    <developerConnection>scm:svn:svn+ssh://svn.davidsoergel.com/home/svn/repos-ds/trees/trunk
     </developerConnection>
   </scm>
 
