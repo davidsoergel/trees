@@ -91,7 +91,7 @@ public interface HierarchicalTypedPropertyNode<K extends Comparable, V, H extend
 
 	Object[] getEnumOptions();
 
-	V getInheritedValue(K name);
+	// V getInheritedValue(K name);
 
 	HierarchicalTypedPropertyNode<K, V, H> getInheritedNode(K name);
 

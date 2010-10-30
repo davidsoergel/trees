@@ -236,7 +236,7 @@ public abstract class AbstractHierarchicalTypedPropertyNode<K extends Comparable
 			}
 		}
 
-	public V getInheritedValue(K forKey)
+/*	public V getInheritedValue(K forKey)
 		{
 		V result = getChildValue(forKey);
 
@@ -245,7 +245,7 @@ public abstract class AbstractHierarchicalTypedPropertyNode<K extends Comparable
 			result = parent.getInheritedValue(forKey);
 			}
 		return result;
-		}
+		}*/
 
 	public HierarchicalTypedPropertyNode<K, V, H> getInheritedNode(K forKey)
 		{
@@ -301,17 +301,16 @@ public abstract class AbstractHierarchicalTypedPropertyNode<K extends Comparable
 		V value = getValue();
 		if (value == PropertyConsumerFlags.INHERITED)
 			{
-			setValue(getParent().getInheritedValue(getKey()));  //Force??
-
-			// copy the plugin _definition_, not the plugin instance itself
-			// if the plugin is a singleton, it will be used that way
-
+			HierarchicalTypedPropertyNode<K, V, H> inheritNode = getParent().getInheritedNode(getKey());
+			setValue(inheritNode.getValue());
 			if (isClassBoundPlugin())
 				{
+				// copy the plugin _definition_, not the plugin instance itself
+				// if the plugin is a singleton, it will be used that way
 				logger.warn("Plugin definition inherited: " + getKey() + "=" + getValue()
 				            + " (singleton only if get/setInjectedInstance exists, else newly instantiated)");
 
-				copyFrom(getParent().getInheritedNode(getKey()));
+				copyFrom(inheritNode);
 				}
 			}
 		}
