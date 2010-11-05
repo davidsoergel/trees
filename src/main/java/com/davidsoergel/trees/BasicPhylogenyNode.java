@@ -39,6 +39,7 @@ import org.jetbrains.annotations.Nullable;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.LinkedList;
@@ -501,6 +502,7 @@ public class BasicPhylogenyNode<T extends Serializable>
 		 return child;
 		 }
  */
+
 	/**
 	 * {@inheritDoc}
 	 */
@@ -749,6 +751,7 @@ public class BasicPhylogenyNode<T extends Serializable>
 
 
 	Double greatestBranchLengthDepth = null;
+	Double leastBranchLengthDepth = null;
 	Integer greatestNodeDepth = null;
 	Double secondGreatestDepth = null;
 	Double largestLengthSpan = null;
@@ -772,6 +775,15 @@ public class BasicPhylogenyNode<T extends Serializable>
 		return greatestBranchLengthDepth;
 		}
 
+	/**
+	 * {@inheritDoc}
+	 */
+	public double getLeastBranchLengthDepthBelow()
+		{
+		computeDepthsIfNeeded();
+		return leastBranchLengthDepth;
+		}
+
 
 	/**
 	 * {@inheritDoc}
@@ -787,6 +799,7 @@ public class BasicPhylogenyNode<T extends Serializable>
 		if (greatestBranchLengthDepth == null)
 			{
 			greatestBranchLengthDepth = 0.;
+			leastBranchLengthDepth = Double.MAX_VALUE;
 			secondGreatestDepth = 0.;
 			largestLengthSpan = 0.;
 			greatestNodeDepth = 0;
@@ -808,6 +821,12 @@ public class BasicPhylogenyNode<T extends Serializable>
 				if (child.length != null)
 					{
 					child.computeDepthsIfNeeded();
+
+					// least depth is easy
+					if (child.length + child.leastBranchLengthDepth < leastBranchLengthDepth)
+						{
+						leastBranchLengthDepth = child.length + child.leastBranchLengthDepth;
+						}
 
 					// case 1: the child replaces the greatest depth
 
@@ -838,6 +857,10 @@ public class BasicPhylogenyNode<T extends Serializable>
 
 					largestLengthSpan = Math.max(largestLengthSpan, spanViaChild);
 					}
+				}
+			if (isLeaf())
+				{
+				leastBranchLengthDepth = 0.;
 				}
 			}
 
@@ -990,6 +1013,7 @@ public class BasicPhylogenyNode<T extends Serializable>
 		 return n.nearestAncestorWithBranchLength();
 		 }
  */
+
 	/**
 	 * {@inheritDoc}
 	 */
@@ -1021,6 +1045,30 @@ public class BasicPhylogenyNode<T extends Serializable>
 			n.addToMap(uniqueIdToNodeMap, namer);
 			}
 		}*/
+
+	public void collectLeavesBelowAtApproximateDistance(final double minDesiredTreeDistance,
+	                                                    final double maxDesiredTreeDistance,
+	                                                    Collection<PhylogenyNode<T>> result)
+		{
+		if (maxDesiredTreeDistance < getLeastBranchLengthDepthBelow()
+		    || getGreatestBranchLengthDepthBelow() < minDesiredTreeDistance)
+			{
+			return;
+			}
+		if (isLeaf())
+			{
+			// the greatest and least distances were 0, so we already tested that this leaf is in the desired range
+			result.add(this);
+			}
+
+		// PERF Parallel.forEach?
+		for (PhylogenyNode<T> child : getChildren())
+			{
+			double l = child.getLength();
+			child.collectLeavesBelowAtApproximateDistance(minDesiredTreeDistance - l, maxDesiredTreeDistance - l,
+			                                              result);
+			}
+		}
 	}
 
 

@@ -35,6 +35,7 @@ package com.davidsoergel.trees;
 import org.jetbrains.annotations.Nullable;
 
 import java.io.Serializable;
+import java.util.Collection;
 import java.util.List;
 
 
@@ -73,6 +74,7 @@ public interface PhylogenyNode<T extends Serializable>
 	List<? extends PhylogenyNode<T>> getAncestorPath();
 
 	// this was a LinkedList because we need it to be Serializable for caching, but making it immutable means we can't enforce Serializable after all
+
 	List<T> getAncestorPathPayloads();
 
 
@@ -120,4 +122,8 @@ public interface PhylogenyNode<T extends Serializable>
 	RootedPhylogeny<T> asRootedPhylogeny();
 
 	PhylogenyNode<T> getRandomLeafBelow();
+
+	public void collectLeavesBelowAtApproximateDistance(final double minDesiredTreeDistance,
+	                                                    final double maxDesiredTreeDistance,
+	                                                    Collection<PhylogenyNode<T>> result);
 	}

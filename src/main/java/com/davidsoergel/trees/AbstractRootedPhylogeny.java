@@ -53,6 +53,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.NoSuchElementException;
 import java.util.Set;
+import java.util.concurrent.ConcurrentSkipListMap;
+import java.util.concurrent.ConcurrentSkipListSet;
 
 
 /**
@@ -1287,7 +1289,7 @@ public abstract class AbstractRootedPhylogeny<T extends Serializable> implements
 		}
 
 
-	private static final int MAX_SEARCH_ITERATIONS = 1000;
+	//private static final int MAX_SEARCH_ITERATIONS = 1000;
 
 	public T getLeafAtApproximateDistance(final T aId, final double minDesiredTreeDistance,
 	                                      final double maxDesiredTreeDistance) throws NoSuchNodeException
@@ -1299,29 +1301,57 @@ public abstract class AbstractRootedPhylogeny<T extends Serializable> implements
 		final PhylogenyNode<T> queryNode = getNode(aId);
 		PhylogenyNode<T> p = queryNode;
 		PhylogenyNode<T> root = getRoot();
-		while (distanceToSubtreeRoot < maxDesiredTreeDistance && p != root)
+		Map<PhylogenyNode<T>, Double> candidateRoots = new ConcurrentSkipListMap<PhylogenyNode<T>, Double>();
+
+		while (distanceToSubtreeRoot <= maxDesiredTreeDistance && p != root)
 			{
+			candidateRoots.put(p, distanceToSubtreeRoot);
 			distanceToSubtreeRoot += p.getLength();
 			p = p.getParent();
 			}
+		candidateRoots.remove(queryNode);
 
-		// now p is the root of the subtree that can possibly contain the node we want
+		// now p is the root of the subtree that can possibly contain the node we want, and candidateRoots contains all the nodes along the ancestor path to it
 
-		for (int i = 0; i < MAX_SEARCH_ITERATIONS; i++)
+		Collection<PhylogenyNode<T>> candidates = new ConcurrentSkipListSet<PhylogenyNode<T>>();
+
+		// PERF Parallel.forEach
+		for (Map.Entry<PhylogenyNode<T>, Double> entry : candidateRoots.entrySet())
 			{
-			//** Note getRandomLeafBelow is weighted by tree structure (uniform at each node on the path, not uniform over leaves)
-			PhylogenyNode<T> candidate = p.getRandomLeafBelow();
-			double candidateDistance = distanceBetween(queryNode, candidate);
-			if (candidateDistance >= minDesiredTreeDistance && candidateDistance <= maxDesiredTreeDistance)
-				{
-				return candidate.getPayload();
-				}
+			PhylogenyNode<T> candidateRoot = entry.getKey();
+			double candidateRootHeight = entry.getValue();
+			candidateRoot.collectLeavesBelowAtApproximateDistance(minDesiredTreeDistance - candidateRootHeight,
+			                                                      maxDesiredTreeDistance - candidateRootHeight,
+			                                                      candidates);
 			}
 
-		throw new NoSuchNodeException(
-				"Could not find a node in the requested distance range (" + minDesiredTreeDistance + " - "
-				+ maxDesiredTreeDistance + " from " + aId + ") after " + MAX_SEARCH_ITERATIONS + " attempts");
+		// now all of the candidates meet the criteria.
+
+		if (candidates.isEmpty())
+			{
+			throw new NoSuchNodeException();
+			}
+
+		// just pick one
+		// ** could try to pick the closest to the request, i.e. the middle of the range?
+		return DSCollectionUtils.chooseRandom(candidates).getPayload();
+
+//		for (int i = 0; i < MAX_SEARCH_ITERATIONS; i++)
+//			{
+//			//** Note getRandomLeafBelow is weighted by tree structure (uniform at each node on the path, not uniform over leaves)
+//			PhylogenyNode<T> candidate = p.getRandomLeafBelow();
+//			double candidateDistance = distanceBetween(queryNode, candidate);
+//			if (candidateDistance >= minDesiredTreeDistance && candidateDistance <= maxDesiredTreeDistance)
+//				{
+//				return candidate.getPayload();
+//				}
+//			}
+//
+//		throw new NoSuchNodeException(
+//				"Could not find a node in the requested distance range (" + minDesiredTreeDistance + " - "
+//				+ maxDesiredTreeDistance + " from " + aId + ") after " + MAX_SEARCH_ITERATIONS + " attempts");
 		}
+
 
 	public int countDescendantsIncludingThis()
 		{
