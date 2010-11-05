@@ -53,8 +53,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.NoSuchElementException;
 import java.util.Set;
-import java.util.concurrent.ConcurrentSkipListMap;
-import java.util.concurrent.ConcurrentSkipListSet;
 
 
 /**
@@ -1301,7 +1299,8 @@ public abstract class AbstractRootedPhylogeny<T extends Serializable> implements
 		final PhylogenyNode<T> queryNode = getNode(aId);
 		PhylogenyNode<T> p = queryNode;
 		PhylogenyNode<T> root = getRoot();
-		Map<PhylogenyNode<T>, Double> candidateRoots = new ConcurrentSkipListMap<PhylogenyNode<T>, Double>();
+		Map<PhylogenyNode<T>, Double> candidateRoots =
+				new HashMap<PhylogenyNode<T>, Double>(); //new ConcurrentSkipListMap<PhylogenyNode<T>, Double>();
 
 		while (distanceToSubtreeRoot <= maxDesiredTreeDistance && p != root)
 			{
@@ -1313,7 +1312,8 @@ public abstract class AbstractRootedPhylogeny<T extends Serializable> implements
 
 		// now p is the root of the subtree that can possibly contain the node we want, and candidateRoots contains all the nodes along the ancestor path to it
 
-		Collection<PhylogenyNode<T>> candidates = new ConcurrentSkipListSet<PhylogenyNode<T>>();
+		Collection<PhylogenyNode<T>> candidates =
+				new HasSet<PhylogenyNode<T>>(); //new ConcurrentSkipListSet<PhylogenyNode<T>>();
 
 		// PERF Parallel.forEach
 		for (Map.Entry<PhylogenyNode<T>, Double> entry : candidateRoots.entrySet())
