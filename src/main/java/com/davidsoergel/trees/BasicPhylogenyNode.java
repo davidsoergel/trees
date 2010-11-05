@@ -60,7 +60,7 @@ public class BasicPhylogenyNode<T extends Serializable>
 		// really T should extend Serializable here but let's see if we can get away without it
 	{
 
-	private static final long serialVersionUID = 20090720L;
+	private static final long serialVersionUID = 20101104L;
 
 	private static final Logger logger = Logger.getLogger(BasicPhylogenyNode.class);
 	// ------------------------------ FIELDS ------------------------------
