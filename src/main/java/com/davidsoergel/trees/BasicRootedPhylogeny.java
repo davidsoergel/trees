@@ -294,6 +294,7 @@ root = new BasicPhylogenyNode<T>(original.);
 		 return root.newChild();
 		 }
  */
+
 	/**
 	 * {@inheritDoc}
 	 */
@@ -400,6 +401,14 @@ root = new BasicPhylogenyNode<T>(original.);
 	public double getGreatestBranchLengthDepthBelow()
 		{
 		return root.getGreatestBranchLengthDepthBelow();
+		}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	public double getLeastBranchLengthDepthBelow()
+		{
+		return root.getLeastBranchLengthDepthBelow();
 		}
 
 
@@ -732,6 +741,13 @@ return this;
 		return new RootedPhylogenyAsService<T>(this);
 		}
 		*/
+
+	public void collectLeavesBelowAtApproximateDistance(final double minDesiredTreeDistance,
+	                                                    final double maxDesiredTreeDistance,
+	                                                    final Collection<PhylogenyNode<T>> result)
+		{
+		root.collectLeavesBelowAtApproximateDistance(minDesiredTreeDistance, maxDesiredTreeDistance, result);
+		}
 	}
 
 
