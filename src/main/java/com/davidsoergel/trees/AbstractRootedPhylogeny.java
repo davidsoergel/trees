@@ -1313,7 +1313,7 @@ public abstract class AbstractRootedPhylogeny<T extends Serializable> implements
 		// now p is the root of the subtree that can possibly contain the node we want, and candidateRoots contains all the nodes along the ancestor path to it
 
 		Collection<PhylogenyNode<T>> candidates =
-				new HasSet<PhylogenyNode<T>>(); //new ConcurrentSkipListSet<PhylogenyNode<T>>();
+				new HashSet<PhylogenyNode<T>>(); //new ConcurrentSkipListSet<PhylogenyNode<T>>();
 
 		// PERF Parallel.forEach
 		for (Map.Entry<PhylogenyNode<T>, Double> entry : candidateRoots.entrySet())
