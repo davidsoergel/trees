@@ -55,8 +55,8 @@ import java.util.Map;
  * @version $Id: BasicPhylogenyNode.java 353 2009-10-19 17:49:33Z soergel $
  */
 
-public class BasicPhylogenyNode<T extends Serializable>
-		implements SerializablePhylogenyNode<T>//, HierarchyNode<T, BasicPhylogenyNode<T>>
+public class BasicPhylogenyNode<T extends Serializable> implements SerializablePhylogenyNode<T>,
+                                                                   Comparable<BasicPhylogenyNode>//, HierarchyNode<T, BasicPhylogenyNode<T>>
 		// really T should extend Serializable here but let's see if we can get away without it
 	{
 
@@ -1068,6 +1068,11 @@ public class BasicPhylogenyNode<T extends Serializable>
 			child.collectLeavesBelowAtApproximateDistance(minDesiredTreeDistance - l, maxDesiredTreeDistance - l,
 			                                              result);
 			}
+		}
+
+	public int compareTo(final BasicPhylogenyNode o)
+		{
+		return getName().compareTo(o.getName());
 		}
 	}
 
