@@ -38,7 +38,7 @@
   <artifactId>trees</artifactId>
 
   <name>trees</name>
-  <version>1.021-SNAPSHOT</version>
+  <version>1.022-SNAPSHOT</version>
   <url>http://dev.davidsoergel.com/trees</url>
   <description>Datastructures and utilities for manipulating trees</description>
 
