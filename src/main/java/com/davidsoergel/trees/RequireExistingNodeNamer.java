@@ -79,11 +79,29 @@ public class RequireExistingNodeNamer<T> implements NodeNamer<T>
 
 	public T uniqueify(T value)
 		{
-		if (value == null && allowNull)
+		if (value == null)
 			{
-			return null;
+			if (allowNull)
+				{
+				// allow null IDs even for "unique"
+				return null;
+				}
+			else
+				{
+				throw new TreeRuntimeException("null ID disallowed");
+				}
 			}
-		throw new TreeRuntimeException("ID modification disallowed");
+		else
+			{
+			// assume the values are already unique
+			return value;
+			}
+
+//		if (value == null && allowNull)
+//			{
+//			return null;
+//			}
+//		throw new TreeRuntimeException("ID modification disallowed");
 		}
 
 	public boolean isAcceptable(T value)
