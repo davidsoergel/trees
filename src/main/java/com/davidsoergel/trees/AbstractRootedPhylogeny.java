@@ -36,6 +36,8 @@ import com.davidsoergel.dsutils.collections.ConcurrentHashWeightedSet;
 import com.davidsoergel.dsutils.collections.DSCollectionUtils;
 import com.davidsoergel.dsutils.collections.MutableWeightedSet;
 import com.davidsoergel.stats.ContinuousDistribution1D;
+import com.google.common.base.Function;
+import com.google.common.collect.MapMaker;
 import com.google.common.collect.Multiset;
 import org.apache.commons.lang.NotImplementedException;
 import org.apache.log4j.Logger;
@@ -467,10 +469,31 @@ public abstract class AbstractRootedPhylogeny<T extends Serializable> implements
 		return getNode(id).getAncestorPath();
 		}
 
+	private Map<PhylogenyNode<T>, BasicPhylogenyNode<T>> convertedNodes =
+			new MapMaker().makeComputingMap(new Function<PhylogenyNode<T>, BasicPhylogenyNode<T>>()
+			{
+			public BasicPhylogenyNode<T> apply(final PhylogenyNode<T> origNode)
+				{
+				BasicPhylogenyNode<T> convertedNode;
+				if (origNode instanceof BasicPhylogenyNode)
+					{
+					convertedNode = (BasicPhylogenyNode<T>) origNode;
+					}
+				else
+					{
+					BasicPhylogenyNode<T> parent = convertedNodes.get(origNode.getParent());
+					convertedNode = new BasicPhylogenyNode<T>(parent, origNode);
+					}
+				return convertedNode;
+				}
+			});
+
 	@NotNull
 	public List<BasicPhylogenyNode<T>> getAncestorPathAsBasic(final T id) throws NoSuchNodeException
 		{
-		List<? extends PhylogenyNode<T>> orig = getNode(id).getAncestorPath();
+		return Collections.unmodifiableList(convertedNodes.get(getNode(id)).getAncestorPath());
+
+/*		List<? extends PhylogenyNode<T>> orig = getNode(id).getAncestorPath();
 
 		ArrayList<BasicPhylogenyNode<T>> result = new ArrayList<BasicPhylogenyNode<T>>();
 		BasicPhylogenyNode<T> parent = null;
@@ -488,7 +511,7 @@ public abstract class AbstractRootedPhylogeny<T extends Serializable> implements
 			result.add(convertedNode);
 			parent = convertedNode;
 			}
-		return Collections.unmodifiableList(result);
+		return Collections.unmodifiableList(result);*/
 		}
 
 	/**
