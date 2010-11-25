@@ -469,7 +469,7 @@ public abstract class AbstractRootedPhylogeny<T extends Serializable> implements
 		return getNode(id).getAncestorPath();
 		}
 
-	private Map<PhylogenyNode<T>, BasicPhylogenyNode<T>> convertedNodes =
+	public final Map<PhylogenyNode<T>, BasicPhylogenyNode<T>> convertedNodes =
 			new MapMaker().makeComputingMap(new Function<PhylogenyNode<T>, BasicPhylogenyNode<T>>()
 			{
 			public BasicPhylogenyNode<T> apply(final PhylogenyNode<T> origNode)
@@ -491,7 +491,9 @@ public abstract class AbstractRootedPhylogeny<T extends Serializable> implements
 	@NotNull
 	public List<BasicPhylogenyNode<T>> getAncestorPathAsBasic(final T id) throws NoSuchNodeException
 		{
-		return Collections.unmodifiableList(convertedNodes.get(getNode(id)).getAncestorPath());
+		PhylogenyNode<T> n = getNode(id);
+		BasicPhylogenyNode<T> phylogenyNode = convertedNodes.get(n);
+		return Collections.unmodifiableList(phylogenyNode.getAncestorPath());
 
 /*		List<? extends PhylogenyNode<T>> orig = getNode(id).getAncestorPath();
 
