@@ -36,8 +36,6 @@ import com.davidsoergel.dsutils.collections.ConcurrentHashWeightedSet;
 import com.davidsoergel.dsutils.collections.DSCollectionUtils;
 import com.davidsoergel.dsutils.collections.MutableWeightedSet;
 import com.davidsoergel.stats.ContinuousDistribution1D;
-import com.google.common.base.Function;
-import com.google.common.collect.MapMaker;
 import com.google.common.collect.Multiset;
 import org.apache.commons.lang.NotImplementedException;
 import org.apache.log4j.Logger;
@@ -469,7 +467,12 @@ public abstract class AbstractRootedPhylogeny<T extends Serializable> implements
 		return getNode(id).getAncestorPath();
 		}
 
-	public final Map<PhylogenyNode<T>, BasicPhylogenyNode<T>> convertedNodes =
+	// the computingMap thing doesn't work right over a Hessian proxy; just do it manually
+
+	Map<PhylogenyNode<T>, BasicPhylogenyNode<T>> convertedNodes =
+			new HashMap<PhylogenyNode<T>, BasicPhylogenyNode<T>>();
+
+/*	public final ConcurrentMap<PhylogenyNode<T>, BasicPhylogenyNode<T>> convertedNodes =
 			new MapMaker().makeComputingMap(new Function<PhylogenyNode<T>, BasicPhylogenyNode<T>>()
 			{
 			public BasicPhylogenyNode<T> apply(final PhylogenyNode<T> origNode)
@@ -487,13 +490,34 @@ public abstract class AbstractRootedPhylogeny<T extends Serializable> implements
 				return convertedNode;
 				}
 			});
+*/
+
+	private BasicPhylogenyNode<T> convertToBasic(final PhylogenyNode<T> origNode)
+		{
+		BasicPhylogenyNode<T> convertedNode = convertedNodes.get(origNode);
+		if (convertedNode == null)
+			{
+			if (origNode instanceof BasicPhylogenyNode)
+				{
+				convertedNode = (BasicPhylogenyNode<T>) origNode;
+				}
+			else
+				{
+				BasicPhylogenyNode<T> parent = convertToBasic(origNode.getParent());
+				convertedNode = new BasicPhylogenyNode<T>(parent, origNode);
+				}
+			convertedNodes.put(origNode, convertedNode);
+			}
+		return convertedNode;
+		}
+
 
 	@NotNull
 	public List<BasicPhylogenyNode<T>> getAncestorPathAsBasic(final T id) throws NoSuchNodeException
 		{
 		PhylogenyNode<T> n = getNode(id);
-		BasicPhylogenyNode<T> phylogenyNode = convertedNodes.get(n);
-		return Collections.unmodifiableList(phylogenyNode.getAncestorPath());
+		BasicPhylogenyNode<T> convertedNode = convertToBasic(n);
+		return Collections.unmodifiableList(convertedNode.getAncestorPath());
 
 /*		List<? extends PhylogenyNode<T>> orig = getNode(id).getAncestorPath();
 
