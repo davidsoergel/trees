@@ -35,6 +35,9 @@ package com.davidsoergel.trees;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import java.io.IOException;
+import java.io.Writer;
+
 
 /**
  * A node of a tree with an associated branch length and weight.
@@ -126,5 +129,5 @@ public interface LengthWeightHierarchyNode<T, I extends LengthWeightHierarchyNod
 	//	Collection<? extends LengthWeightHierarchyNode<T>> getChildren();
 
 
-	void toNewick(StringBuffer sb, String prefix, String tab, int minClusterSize, double minLabelProb);
+	void toNewick(Writer out, String prefix, String tab, int minClusterSize, double minLabelProb) throws IOException;
 	}

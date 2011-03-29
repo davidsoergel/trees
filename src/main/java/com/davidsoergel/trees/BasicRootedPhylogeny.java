@@ -37,8 +37,10 @@ import org.apache.log4j.Logger;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import java.io.IOException;
 import java.io.ObjectStreamException;
 import java.io.Serializable;
+import java.io.Writer;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
@@ -91,10 +93,11 @@ public class BasicRootedPhylogeny<T extends Serializable> extends AbstractRooted
 		assignUniqueIds(new RequireExistingNodeNamer<T>(true));
 		}
 
-	public void toNewick(StringBuffer sb, String prefix, String tab, int minClusterSize, double minLabelProb)
+	public void toNewick(Writer out, String prefix, String tab, int minClusterSize, double minLabelProb)
+			throws IOException
 		{
-		root.toNewick(sb, prefix, tab, minClusterSize, minLabelProb);
-		sb.append(";\n");
+		root.toNewick(out, prefix, tab, minClusterSize, minLabelProb);
+		out.write(";\n");
 		}
 
 	@Override
