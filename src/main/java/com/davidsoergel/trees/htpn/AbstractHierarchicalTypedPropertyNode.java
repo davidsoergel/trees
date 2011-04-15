@@ -153,13 +153,13 @@ public abstract class AbstractHierarchicalTypedPropertyNode<K extends Comparable
 			return 0;
 			}
 		else if (key == null)
-				{
-				return -1;
-				}
-			else
-				{
-				return key.compareTo(((HierarchicalTypedPropertyNode<K, V, H>) o).getKey());
-				}
+			{
+			return -1;
+			}
+		else
+			{
+			return key.compareTo(((HierarchicalTypedPropertyNode<K, V, H>) o).getKey());
+			}
 		}
 
 // --------------------- Interface HierarchicalTypedPropertyNode ---------------------
@@ -296,18 +296,24 @@ public abstract class AbstractHierarchicalTypedPropertyNode<K extends Comparable
 	/**
 	 * For simple values, we can just copy the value here.  But for plugins, we need to copy the whole subtree.
 	 */
-	public void inheritValueIfNeeded()
+	public void inheritValueIfNeeded() throws HierarchicalPropertyNodeException
 		{
 		V value = getValue();
 		if (value == PropertyConsumerFlags.INHERITED)
 			{
-			HierarchicalTypedPropertyNode<K, V, H> inheritNode = getParent().getInheritedNode(getKey());
+			K key = getKey();
+			HierarchicalTypedPropertyNode<K, V, H> inheritNode = getParent().getInheritedNode(key);
+			if (inheritNode == null)
+				{
+				throw new HierarchicalPropertyNodeException(
+						"Inherited value required but not available for key: " + key.toString());
+				}
 			setValue(inheritNode.getValue());
 			if (isClassBoundPlugin())
 				{
 				// copy the plugin _definition_, not the plugin instance itself
 				// if the plugin is a singleton, it will be used that way
-				logger.warn("Plugin definition inherited: " + getKey() + "=" + getValue()
+				logger.warn("Plugin definition inherited: " + key + "=" + getValue()
 				            + " (singleton only if get/setInjectedInstance exists, else newly instantiated)");
 
 				copyFrom(inheritNode);
@@ -598,18 +604,18 @@ public abstract class AbstractHierarchicalTypedPropertyNode<K extends Comparable
 		}
 
 	public void copyFrom(final HierarchicalTypedPropertyNode<K, V, ?> node) //throws HierarchicalPropertyNodeException
+	{
+	//setKey(node.getKey());
+	//setValue(node.getValue());
+	setType(node.getType());
+
+	clearChildren();
+
+	for (HierarchicalTypedPropertyNode<K, V, ?> child : node.getChildNodes()) //getChildren())
 		{
-		//setKey(node.getKey());
-		//setValue(node.getValue());
-		setType(node.getType());
-
-		clearChildren();
-
-		for (HierarchicalTypedPropertyNode<K, V, ?> child : node.getChildNodes()) //getChildren())
-			{
-			newChild(child.getPayload()).copyFrom(child);
-			}
+		newChild(child.getPayload()).copyFrom(child);
 		}
+	}
 
 /*
 	public void copyChildrenFrom(HierarchicalTypedPropertyNode<K, V, ?> inheritedNode)

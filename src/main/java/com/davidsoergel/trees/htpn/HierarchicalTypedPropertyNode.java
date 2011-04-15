@@ -116,7 +116,7 @@ public interface HierarchicalTypedPropertyNode<K extends Comparable, V, H extend
 
 	V getValue();
 
-	void inheritValueIfNeeded();
+	void inheritValueIfNeeded() throws HierarchicalPropertyNodeException;
 
 
 	//boolean isNamesSubConsumer();
