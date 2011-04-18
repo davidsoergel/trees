@@ -803,7 +803,7 @@ public class BasicPhylogenyNode<T extends Serializable> implements SerializableP
 		return greatestNodeDepth;
 		}
 
-	private void computeDepthsIfNeeded()
+	private synchronized void computeDepthsIfNeeded()
 		{
 		if (greatestBranchLengthDepth == null)
 			{
