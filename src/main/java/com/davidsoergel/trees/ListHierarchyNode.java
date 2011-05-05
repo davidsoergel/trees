@@ -33,6 +33,8 @@
 
 package com.davidsoergel.trees;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -70,6 +72,7 @@ public class ListHierarchyNode<T> extends AbstractHierarchyNode<T, ListHierarchy
 		children.remove(child);
 		}
 
+	@NotNull
 	public List<? extends ListHierarchyNode<T>> getChildren()
 		{
 		return children;

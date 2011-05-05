@@ -257,6 +257,7 @@ root = new BasicPhylogenyNode<T>(original.);
 	/**
 	 * {@inheritDoc}
 	 */
+	@NotNull
 	public List<BasicPhylogenyNode<T>> getChildren()
 		{
 		return root.getChildren();
@@ -275,6 +276,7 @@ root = new BasicPhylogenyNode<T>(original.);
 	/**
 	 * {@inheritDoc}
 	 */
+	@NotNull
 	public T getPayload()
 		{
 		return root.getPayload();
@@ -549,7 +551,7 @@ root = new BasicPhylogenyNode<T>(original.);
 	/**
 	 * {@inheritDoc}
 	 */
-	public void setWeight(Double v)
+	public void setWeight(@NotNull Double v)
 		{
 		if (v != 1.)
 			{
@@ -750,6 +752,21 @@ return this;
 	                                                    final Collection<PhylogenyNode<T>> result)
 		{
 		root.collectLeavesBelowAtApproximateDistance(minDesiredTreeDistance, maxDesiredTreeDistance, result);
+		}
+
+
+	@NotNull
+	public Collection<? extends PhylogenyNode<T>> getDescendantLeaves()
+		{
+		Set<PhylogenyNode<T>> result = new HashSet<PhylogenyNode<T>>();
+		for (PhylogenyNode<T> n : this)
+			{
+			if (n.isLeaf())
+				{
+				result.add(n);
+				}
+			}
+		return result;
 		}
 	}
 

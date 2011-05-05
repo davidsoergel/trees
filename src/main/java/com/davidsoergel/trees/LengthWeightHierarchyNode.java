@@ -86,7 +86,7 @@ public interface LengthWeightHierarchyNode<T, I extends LengthWeightHierarchyNod
 	 * @return
 	 */
 	//@Nullable
-	@NotNull
+
 	double getLargestLengthSpan();
 
 	/**
@@ -95,7 +95,7 @@ public interface LengthWeightHierarchyNode<T, I extends LengthWeightHierarchyNod
 	 * @return
 	 */
 	//@Nullable
-	@NotNull
+
 	double getGreatestBranchLengthDepthBelow();
 
 	/**
@@ -104,7 +104,7 @@ public interface LengthWeightHierarchyNode<T, I extends LengthWeightHierarchyNod
 	 * @return
 	 */
 	//@Nullable
-	@NotNull
+
 	double getLeastBranchLengthDepthBelow();
 
 

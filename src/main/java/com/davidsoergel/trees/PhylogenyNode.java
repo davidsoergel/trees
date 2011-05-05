@@ -32,6 +32,7 @@
 
 package com.davidsoergel.trees;
 
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.io.Serializable;
@@ -53,6 +54,7 @@ public interface PhylogenyNode<T extends Serializable>
 	/**
 	 * {@inheritDoc}
 	 */
+	@NotNull
 	List<? extends PhylogenyNode<T>> getChildren(); // throws NoSuchNodeException; //
 
 	// the "name" of this PhylogenyNode is the same as the "value" of the hierarchynode

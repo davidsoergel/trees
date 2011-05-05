@@ -36,9 +36,11 @@ package com.davidsoergel.trees;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Set;
 
 // TODO make ListHierarchyNode, etc. extend this
 
@@ -72,6 +74,7 @@ public abstract class AbstractHierarchyNode<KV, H extends HierarchyNode<KV, H>> 
 	/**
 	 * {@inheritDoc}
 	 */
+
 	public KV getPayload()
 		{
 		return payload;
@@ -123,6 +126,7 @@ public abstract class AbstractHierarchyNode<KV, H extends HierarchyNode<KV, H>> 
 	/**
 	 * {@inheritDoc}
 	 */
+	@NotNull
 	public abstract Collection<? extends H> getChildren();
 
 
@@ -239,6 +243,21 @@ public abstract class AbstractHierarchyNode<KV, H extends HierarchyNode<KV, H>> 
 		for (H c : getChildren())
 			{
 			result += c.countDescendantsIncludingThis();
+			}
+		return result;
+		}
+
+
+	@NotNull
+	public Collection<? extends H> getDescendantLeaves()
+		{
+		Set<H> result = new HashSet<H>();
+		for (H n : this)
+			{
+			if (n.isLeaf())
+				{
+				result.add(n);
+				}
 			}
 		return result;
 		}

@@ -1,5 +1,7 @@
 package com.davidsoergel.trees;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.io.Serializable;
 import java.util.List;
 
@@ -11,5 +13,6 @@ public interface SerializablePhylogenyNode<T extends Serializable> extends Phylo
 	{
 	SerializableRootedPhylogeny<T> asRootedPhylogeny();
 
+	@NotNull
 	List<? extends SerializablePhylogenyNode<T>> getChildren(); // throws NoSuchNodeException; //
 	}

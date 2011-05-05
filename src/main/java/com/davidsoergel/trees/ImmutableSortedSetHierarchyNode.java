@@ -72,6 +72,7 @@ public class ImmutableSortedSetHierarchyNode<T extends Comparable<T>>
 
 	// --------------------- GETTER / SETTER METHODS ---------------------
 
+	@NotNull
 	public SortedSet<ImmutableSortedSetHierarchyNode<T>> getChildren()
 		{
 		return children;
@@ -97,6 +98,7 @@ public class ImmutableSortedSetHierarchyNode<T extends Comparable<T>>
 		}
 
 
+	@NotNull
 	public T getPayload()
 		{
 		return contents;

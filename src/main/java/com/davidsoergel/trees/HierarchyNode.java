@@ -58,6 +58,9 @@ public interface HierarchyNode<T, I extends HierarchyNode<T, I>> extends Iterabl
 	@NotNull
 	Collection<? extends I> getChildren();//throws NoSuchNodeException;//? extends HierarchyNode<? extends T, I>>
 
+	@NotNull
+	Collection<? extends I> getDescendantLeaves();
+
 	/**
 	 * Gets the child of this node which has the given value
 	 *
@@ -80,7 +83,6 @@ public interface HierarchyNode<T, I extends HierarchyNode<T, I>> extends Iterabl
 	 *
 	 * @return the value contained in this node
 	 */
-	@NotNull
 	T getPayload();
 
 	/**

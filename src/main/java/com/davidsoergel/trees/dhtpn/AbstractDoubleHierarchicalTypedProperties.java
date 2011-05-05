@@ -2,6 +2,7 @@ package com.davidsoergel.trees.dhtpn;
 
 import com.davidsoergel.trees.AbstractHierarchyNode;
 import com.davidsoergel.trees.htpn.HierarchicalTypedPropertyNode;
+import org.jetbrains.annotations.NotNull;
 
 import java.io.Serializable;
 import java.util.Collection;
@@ -49,6 +50,7 @@ public abstract class AbstractDoubleHierarchicalTypedProperties<I, J, K extends 
 		getChildren().remove(child);
 		}
 
+	@NotNull
 	public abstract Collection<C> getChildren();
 
 	//public abstract C newChild();

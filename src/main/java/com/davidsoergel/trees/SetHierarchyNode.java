@@ -33,6 +33,8 @@
 
 package com.davidsoergel.trees;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.io.IOException;
 import java.io.Serializable;
 import java.util.HashSet;
@@ -73,6 +75,7 @@ public class SetHierarchyNode<T extends Serializable> extends AbstractHierarchyN
 		children.remove(child);
 		}
 
+	@NotNull
 	public Set<SetHierarchyNode<T>> getChildren()
 		{
 		return children;

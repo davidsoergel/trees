@@ -43,10 +43,12 @@ import java.io.Writer;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 
 /**
@@ -293,6 +295,7 @@ public class BasicPhylogenyNode<T extends Serializable> implements SerializableP
 	/**
 	 * {@inheritDoc}
 	 */
+	@NotNull
 	public List<BasicPhylogenyNode<T>> getChildren()
 		{
 		return children;
@@ -376,7 +379,7 @@ public class BasicPhylogenyNode<T extends Serializable> implements SerializableP
 	/**
 	 * {@inheritDoc}
 	 */
-	public void setWeight(Double weight)
+	public void setWeight(@NotNull Double weight)
 		{
 		this.weight = weight;
 		if (parent != null)
@@ -454,6 +457,7 @@ public class BasicPhylogenyNode<T extends Serializable> implements SerializableP
 	/**
 	 * {@inheritDoc}
 	 */
+	@NotNull
 	public T getPayload()
 		{
 		return value;
@@ -1082,6 +1086,20 @@ public class BasicPhylogenyNode<T extends Serializable> implements SerializableP
 	public int compareTo(final BasicPhylogenyNode o)
 		{
 		return getName().compareTo(o.getName());
+		}
+
+	@NotNull
+	public Collection<? extends PhylogenyNode<T>> getDescendantLeaves()
+		{
+		Set<PhylogenyNode<T>> result = new HashSet<PhylogenyNode<T>>();
+		for (PhylogenyNode<T> n : this)
+			{
+			if (n.isLeaf())
+				{
+				result.add(n);
+				}
+			}
+		return result;
 		}
 	}
 
