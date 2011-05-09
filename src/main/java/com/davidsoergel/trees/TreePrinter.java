@@ -32,6 +32,8 @@
 
 package com.davidsoergel.trees;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.util.Iterator;
 
 /**
@@ -41,7 +43,7 @@ import java.util.Iterator;
 public class TreePrinter
 	{
 
-	public static <T, I extends HierarchyNode<T, I>> String prettyPrint(HierarchyNode<T, I> root)
+	public static <T, I extends HierarchyNode<T, I>> String prettyPrint(@NotNull HierarchyNode<T, I> root)
 		{
 		StringBuffer sb = new StringBuffer();
 		Iterator<I> iterator = root.iterator();// depth first
