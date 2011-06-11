@@ -15,10 +15,10 @@ public class NoSuchNodeException extends ChainedException
 
 	// --------------------------- CONSTRUCTORS ---------------------------
 
-	public NoSuchNodeException()
+/*	public NoSuchNodeException()
 		{
 		super();
-		}
+		}*/
 
 	public NoSuchNodeException(String s)
 		{

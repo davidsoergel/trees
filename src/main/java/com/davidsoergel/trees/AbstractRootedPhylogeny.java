@@ -386,22 +386,22 @@ public abstract class AbstractRootedPhylogeny<T extends Serializable> implements
 	public BasicRootedPhylogeny<T> extractTreeWithLeaves(Collection<? extends PhylogenyNode<T>> leaves,
 	                                                     boolean includeInternalBranches,
 	                                                     MutualExclusionResolutionMode mode) //, NodeNamer<T> namer)
+	{
+	// leaves must be unique, so we really wanted a Set, but we had to use a List in idsToLeaves above to avoid calling hashcode.
+	// Still, the ids were in a Set to begin with, so uniqueness should be guaranteed anyway.
+	// assert DSCollectionUtils.setOfLastElements(leaves).size() == leaves.size();
+
+	// we're going to destroy the ancestorlists in the process of extracting the tree, so make copies first
+
+	final Set<List<? extends PhylogenyNode<T>>> theDisposableAncestorLists =
+			new HashSet<List<? extends PhylogenyNode<T>>>(leaves.size());
+	for (final PhylogenyNode<T> leaf : leaves)
 		{
-		// leaves must be unique, so we really wanted a Set, but we had to use a List in idsToLeaves above to avoid calling hashcode.
-		// Still, the ids were in a Set to begin with, so uniqueness should be guaranteed anyway.
-		// assert DSCollectionUtils.setOfLastElements(leaves).size() == leaves.size();
-
-		// we're going to destroy the ancestorlists in the process of extracting the tree, so make copies first
-
-		final Set<List<? extends PhylogenyNode<T>>> theDisposableAncestorLists =
-				new HashSet<List<? extends PhylogenyNode<T>>>(leaves.size());
-		for (final PhylogenyNode<T> leaf : leaves)
-			{
-			theDisposableAncestorLists.add(new ArrayList<PhylogenyNode<T>>(leaf.getAncestorPath()));
-			}
-
-		return extractTreeWithLeafPaths(theDisposableAncestorLists, includeInternalBranches, mode);
+		theDisposableAncestorLists.add(new ArrayList<PhylogenyNode<T>>(leaf.getAncestorPath()));
 		}
+
+	return extractTreeWithLeafPaths(theDisposableAncestorLists, includeInternalBranches, mode);
+	}
 
 
 	@NotNull
@@ -457,6 +457,7 @@ public abstract class AbstractRootedPhylogeny<T extends Serializable> implements
 	   }
    */
 
+	@NotNull
 	public List<T> getAncestorPathIds(final T id) throws NoSuchNodeException
 		{
 		return getNode(id).getAncestorPathPayloads();
@@ -1070,24 +1071,24 @@ public abstract class AbstractRootedPhylogeny<T extends Serializable> implements
 		}
 
 	public Map<T, Double> getLeafWeights() //throws TreeException
+	{
+	Map<T, Double> result = new HashMap<T, Double>();
+	for (PhylogenyNode<T> leaf : getLeaves())
 		{
-		Map<T, Double> result = new HashMap<T, Double>();
-		for (PhylogenyNode<T> leaf : getLeaves())
-			{
-			result.put(leaf.getPayload(), leaf.getWeight());
-			}
-		return result;
+		result.put(leaf.getPayload(), leaf.getWeight());
 		}
+	return result;
+	}
 
 	public Map<T, Double> getNodeWeights() //throws TreeException
+	{
+	Map<T, Double> result = new HashMap<T, Double>();
+	for (PhylogenyNode<T> node : this)
 		{
-		Map<T, Double> result = new HashMap<T, Double>();
-		for (PhylogenyNode<T> node : this)
-			{
-			result.put(node.getPayload(), node.getWeight());
-			}
-		return result;
+		result.put(node.getPayload(), node.getWeight());
 		}
+	return result;
+	}
 
 	/**
 	 * {@inheritDoc}
@@ -1129,6 +1130,7 @@ public abstract class AbstractRootedPhylogeny<T extends Serializable> implements
 	/**
 	 * {@inheritDoc}
 	 */
+	@NotNull
 	public RootedPhylogeny<T> getBasePhylogenyRecursive()
 		{
 		if (basePhylogeny == null)
@@ -1178,7 +1180,7 @@ public abstract class AbstractRootedPhylogeny<T extends Serializable> implements
 	 * {@inheritDoc}
 	 */
 	public BasicRootedPhylogeny<T> mixWith(RootedPhylogeny<T> otherTree, double mixingProportion) throws TreeException
-		//NoSuchNodeException
+	//NoSuchNodeException
 		{
 		if (mixingProportion < 0 || mixingProportion > 1)
 			{
@@ -1378,7 +1380,9 @@ public abstract class AbstractRootedPhylogeny<T extends Serializable> implements
 
 		if (candidates.isEmpty())
 			{
-			throw new NoSuchNodeException();
+			throw new NoSuchNodeException(
+					"No node found with distance between " + minDesiredTreeDistance + " and " + maxDesiredTreeDistance
+					+ " of " + aId);
 			}
 
 		// just pick one

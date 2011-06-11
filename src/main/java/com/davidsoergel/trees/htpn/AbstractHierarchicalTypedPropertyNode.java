@@ -545,7 +545,7 @@ public abstract class AbstractHierarchicalTypedPropertyNode<K extends Comparable
 		return child;
 		}
 
-	public H updateOrCreateChild(K childKey, V childValue)
+	public H updateOrCreateChild(@NotNull K childKey, V childValue)
 		{
 		H child = getChild(childKey);
 		if (child == null)

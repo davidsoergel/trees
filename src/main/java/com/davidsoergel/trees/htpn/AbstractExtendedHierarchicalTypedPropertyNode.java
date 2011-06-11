@@ -11,6 +11,7 @@ import com.davidsoergel.dsutils.stringmapper.StringMapperException;
 import com.davidsoergel.dsutils.stringmapper.TypedValueStringMapper;
 import org.apache.commons.lang.NotImplementedException;
 import org.apache.log4j.Logger;
+import org.jetbrains.annotations.NotNull;
 
 import java.io.IOException;
 import java.lang.reflect.ParameterizedType;
@@ -39,7 +40,7 @@ public abstract class AbstractExtendedHierarchicalTypedPropertyNode<K extends Co
 
 	//private boolean namesSubConsumer;
 	private boolean isNullable = true;
-			// support assigning variables that don't have @Property, e.g. when inherited from a non-Jandified package
+	// support assigning variables that don't have @Property, e.g. when inherited from a non-Jandified package
 
 	// allow for locking the value
 	protected boolean editable = true;
@@ -52,35 +53,34 @@ public abstract class AbstractExtendedHierarchicalTypedPropertyNode<K extends Co
 
 	public void copyFrom(
 			final ExtendedHierarchicalTypedPropertyNode<K, V, ?> node) //throws HierarchicalPropertyNodeException
+	{
+	//setKey(node.getKey());
+	//setValue(node.getValue());
+	setType(node.getType());
+
+	try
 		{
-		//setKey(node.getKey());
-		//setValue(node.getValue());
-		setType(node.getType());
+		setDefaultAndNullable(node.getDefaultValue(), node.isNullable());  // applies inheritance and default if needed
+		}
+	catch (HierarchicalPropertyNodeException e)
+		{
+		logger.error("Error", e);
+		throw new Error(e);
+		}
 
-		try
-			{
-			setDefaultAndNullable(node.getDefaultValue(),
-			                      node.isNullable());  // applies inheritance and default if needed
-			}
-		catch (HierarchicalPropertyNodeException e)
-			{
-			logger.error("Error", e);
-			throw new Error(e);
-			}
-
-		helpmessage = node.getHelpmessage();
-		editable = node.isEditable();
-		obsolete = node.isObsolete();
-		changed = node.isChanged();
+	helpmessage = node.getHelpmessage();
+	editable = node.isEditable();
+	obsolete = node.isObsolete();
+	changed = node.isChanged();
 //		isDefault = node.isDefault();
 
-		clearChildren();
+	clearChildren();
 
-		for (HierarchicalTypedPropertyNode<K, V, ?> child : node.getChildNodes()) //getChildren())
-			{
-			newChild(child.getPayload()).copyFrom(child);
-			}
+	for (HierarchicalTypedPropertyNode<K, V, ?> child : node.getChildNodes()) //getChildren())
+		{
+		newChild(child.getPayload()).copyFrom(child);
 		}
+	}
 
 /*	public ExtendedHierarchicalTypedPropertyNodeImpl<K, V> init(ExtendedHierarchicalTypedPropertyNodeImpl<K, V> parent,
 																K key, V value, Type type, String helpmessage)
@@ -428,17 +428,17 @@ public abstract class AbstractExtendedHierarchicalTypedPropertyNode<K extends Co
 						"Node has generic type, but the default value is not a plugin class");
 				}
 			else if (type instanceof Class && ((Class) type).isPrimitive() && DSClassUtils
-						.isAssignable(defaultValue.getClass(), DSClassUtils.primitiveToWrapper((Class) type)))
-					{
-					// non-generic case; allows for primitives
-					}
-				else if (!TypeUtils.isAssignableFrom(type, defaultValue.getClass()))
-						{
-						// does not allow primitives, but does deal with generics, though that doesn't apply here anyway... hmmm.
-						throw new HierarchicalPropertyNodeException(
-								"Can't assign a default value of type " + defaultValue.getClass()
-								+ " to a node requiring " + type);
-						}
+					.isAssignable(defaultValue.getClass(), DSClassUtils.primitiveToWrapper((Class) type)))
+				{
+				// non-generic case; allows for primitives
+				}
+			else if (!TypeUtils.isAssignableFrom(type, defaultValue.getClass()))
+				{
+				// does not allow primitives, but does deal with generics, though that doesn't apply here anyway... hmmm.
+				throw new HierarchicalPropertyNodeException(
+						"Can't assign a default value of type " + defaultValue.getClass() + " to a node requiring "
+						+ type);
+				}
 			}
 		}
 
@@ -475,7 +475,7 @@ public abstract class AbstractExtendedHierarchicalTypedPropertyNode<K extends Co
 		}
 
 
-	public H updateOrCreateChild(K childKey, V childValue)
+	public H updateOrCreateChild(@NotNull K childKey, V childValue)
 		{
 		H child = getChild(childKey);
 		if (child == null)

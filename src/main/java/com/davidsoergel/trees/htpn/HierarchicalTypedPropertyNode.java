@@ -34,6 +34,7 @@ package com.davidsoergel.trees.htpn;
 
 import com.davidsoergel.dsutils.collections.OrderedPair;
 import com.davidsoergel.trees.HierarchyNode;
+import org.jetbrains.annotations.NotNull;
 
 import java.lang.reflect.Type;
 import java.util.Collection;
@@ -101,7 +102,7 @@ public interface HierarchicalTypedPropertyNode<K extends Comparable, V, H extend
 
 	H getOrCreateChild(K childKey);
 
-	H updateOrCreateChild(K childKey, V childValue);
+	H updateOrCreateChild(@NotNull K childKey, V childValue);
 
 	H getParent();
 

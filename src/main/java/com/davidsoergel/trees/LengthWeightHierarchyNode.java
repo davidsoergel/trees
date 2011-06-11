@@ -32,7 +32,6 @@
 
 package com.davidsoergel.trees;
 
-import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.io.IOException;
@@ -78,7 +77,7 @@ public interface LengthWeightHierarchyNode<T, I extends LengthWeightHierarchyNod
 	 *
 	 * @param d the weight
 	 */
-	void setWeight(@NotNull Double d);
+	void setWeight(@Nullable Double d);
 
 	/**
 	 * Returns the largest tree distance between any pair of leaves descending from this node.

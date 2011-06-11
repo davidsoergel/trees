@@ -161,7 +161,7 @@ public abstract class AbstractHierarchyNode<KV, H extends HierarchyNode<KV, H>> 
 				return child;
 				}
 			}
-		throw new NoSuchNodeException();
+		throw new NoSuchNodeException("No node found with payload " + payload);
 		}
 
 

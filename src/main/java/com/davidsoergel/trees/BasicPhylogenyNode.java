@@ -379,7 +379,7 @@ public class BasicPhylogenyNode<T extends Serializable> implements SerializableP
 	/**
 	 * {@inheritDoc}
 	 */
-	public void setWeight(@NotNull Double weight)
+	public void setWeight(@Nullable Double weight)
 		{
 		this.weight = weight;
 		if (parent != null)
@@ -466,7 +466,7 @@ public class BasicPhylogenyNode<T extends Serializable> implements SerializableP
 	/**
 	 * {@inheritDoc}
 	 */
-	public void setPayload(T value)
+	public void setPayload(@Nullable T value)
 		{
 		if (value != null && value.equals(new Integer(-1)))
 			{
@@ -528,7 +528,7 @@ public class BasicPhylogenyNode<T extends Serializable> implements SerializableP
 	 * {@inheritDoc}
 	 */
 
-	public final void setParent(PhylogenyNode<T> parent)//BasicPhylogenyNode parent)
+	public final void setParent(@Nullable PhylogenyNode<T> parent)//BasicPhylogenyNode parent)
 		{
 		if (this.parent != null)
 			{
@@ -628,7 +628,7 @@ public class BasicPhylogenyNode<T extends Serializable> implements SerializableP
 		//** temp test
 		//assert nodes.get(n.getValue()) == null;
 		//int stackdepth = Thread.currentThread().getStackTrace().length;
-		if (stackDepth > 2000)
+		if (stackDepth > 2000 && (stackDepth % 100 == 0))
 			{
 			logger.warn("Stack depth = " + stackDepth + " at node " + value);
 			}

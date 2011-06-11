@@ -94,7 +94,7 @@ public class ImmutableSortedSetHierarchyNode<T extends Comparable<T>>
 				return child;
 				}
 			}
-		throw new NoSuchNodeException();
+		throw new NoSuchNodeException("No child found with payload " + id);
 		}
 
 
