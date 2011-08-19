@@ -66,7 +66,7 @@
   <distributionManagement>
     <site>
       <id>website</id>
-      <url>scpexe://dev.davidsoergel.com/home/build/mavensites/trees</url>
+      <url>scpexe://jenkins@dev.davidsoergel.com/home/build/mavensites/trees</url>
     </site>
   </distributionManagement>
 
