@@ -33,80 +33,75 @@
 
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
-  <modelVersion>4.0.0</modelVersion>
-  <groupId>com.davidsoergel</groupId>
-  <artifactId>trees</artifactId>
-
-  <name>trees</name>
-  <version>1.023-SNAPSHOT</version>
-  <url>http://dev.davidsoergel.com/trees</url>
-  <description>Datastructures and utilities for manipulating trees</description>
-
-  <parent>
+    <modelVersion>4.0.0</modelVersion>
     <groupId>com.davidsoergel</groupId>
-    <artifactId>basepom</artifactId>
-    <version>0.95</version>
-  </parent>
+    <artifactId>trees</artifactId>
 
-  <inceptionYear>2009</inceptionYear>
+    <name>trees</name>
+    <version>1.023-SNAPSHOT</version>
+    <url>http://dev.davidsoergel.com/trees</url>
+    <description>Datastructures and utilities for manipulating trees</description>
 
-  <packaging>jar</packaging>
+    <parent>
+        <groupId>com.davidsoergel</groupId>
+        <artifactId>basepom</artifactId>
+        <version>0.98</version>
+    </parent>
 
-  <issueManagement>
-    <system>Trac</system>
-    <url>http://dev.davidsoergel.com/trees/</url>
-  </issueManagement>
+    <inceptionYear>2009</inceptionYear>
 
-  <scm>
-    <connection>scm:svn:http://svn.davidsoergel.com/repos/trees/trunk</connection>
-    <developerConnection>scm:svn:svn+ssh://svn.davidsoergel.com/home/svn/repos-ds/trees/trunk
-    </developerConnection>
-  </scm>
+    <packaging>jar</packaging>
 
-  <distributionManagement>
-    <site>
-      <id>website</id>
-      <url>scpexe://jenkins@dev.davidsoergel.com/home/build/mavensites/trees</url>
-    </site>
-  </distributionManagement>
+    <issueManagement>
+        <system>Trac</system>
+        <url>http://dev.davidsoergel.com/trees/</url>
+    </issueManagement>
+
+    <scm>
+        <connection>scm:svn:http://svn.davidsoergel.com/repos/trees/trunk</connection>
+        <developerConnection>scm:svn:svn+ssh://svn.davidsoergel.com/home/svn/repos-ds/trees/trunk
+        </developerConnection>
+    </scm>
+
+    <distributionManagement>
+        <site>
+            <id>website</id>
+            <url>scpexe://jenkins@dev.davidsoergel.com/home/build/mavensites/trees</url>
+        </site>
+    </distributionManagement>
 
 
-  <repositories>
-    <repository>
-      <id>central</id>
-      <url>http://dev.davidsoergel.com/artifactory/repo</url>
-      <snapshots>
-        <enabled>false</enabled>
-      </snapshots>
-    </repository>
-    <repository>
-      <id>snapshots</id>
-      <url>http://dev.davidsoergel.com/artifactory/repo</url>
-      <releases>
-        <enabled>false</enabled>
-      </releases>
-    </repository>
-  </repositories>
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    </properties>
 
-  <dependencies>
-    <dependency>
-      <groupId>com.davidsoergel</groupId>
-      <artifactId>dsutils</artifactId>
-      <version>1.04-SNAPSHOT</version>
-    </dependency>
-    <dependency>
-      <groupId>com.davidsoergel</groupId>
-      <artifactId>dsutils</artifactId>
-      <version>1.04-SNAPSHOT</version>
-      <classifier>tests</classifier>
-      <scope>test</scope>
-    </dependency>
-    <dependency>
-      <groupId>com.davidsoergel</groupId>
-      <artifactId>stats</artifactId>
-      <version>0.93-SNAPSHOT</version>
-    </dependency>
-  </dependencies>
+    <repositories>
+        <repository>
+            <id>dev.davidsoergel.com</id>
+            <url>http://dev.davidsoergel.com/nexus/content/groups/public/</url>
+        </repository>
+    </repositories>
+
+
+    <dependencies>
+        <dependency>
+            <groupId>com.davidsoergel</groupId>
+            <artifactId>dsutils</artifactId>
+            <version>1.04-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>com.davidsoergel</groupId>
+            <artifactId>dsutils</artifactId>
+            <version>1.04-SNAPSHOT</version>
+            <classifier>tests</classifier>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.davidsoergel</groupId>
+            <artifactId>stats</artifactId>
+            <version>0.93-SNAPSHOT</version>
+        </dependency>
+    </dependencies>
 
 </project>
 
