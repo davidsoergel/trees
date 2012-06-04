@@ -30,78 +30,78 @@
   ~ NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
   ~ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
   -->
-
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
-    <modelVersion>4.0.0</modelVersion>
-    <groupId>com.davidsoergel</groupId>
-    <artifactId>trees</artifactId>
-
-    <name>trees</name>
-    <version>1.023-SNAPSHOT</version>
-    <url>http://dev.davidsoergel.com/trees</url>
-    <description>Datastructures and utilities for manipulating trees</description>
-
-    <parent>
-        <groupId>com.davidsoergel</groupId>
-        <artifactId>basepom</artifactId>
-        <version>0.98</version>
-    </parent>
-
-    <inceptionYear>2009</inceptionYear>
-
-    <packaging>jar</packaging>
-
-    <issueManagement>
-        <system>Trac</system>
-        <url>http://dev.davidsoergel.com/trees/</url>
-    </issueManagement>
-
-    <scm>
-        <connection>scm:svn:http://svn.davidsoergel.com/repos/trees/trunk</connection>
-        <developerConnection>scm:svn:svn+ssh://svn.davidsoergel.com/home/svn/repos-ds/trees/trunk
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>com.davidsoergel</groupId>
+	<artifactId>trees</artifactId>
+	<name>trees</name>
+	<version>1.023-SNAPSHOT</version>
+	<url>http://dev.davidsoergel.com/trees</url>
+	<description>Datastructures and utilities for manipulating trees</description>
+	<parent>
+		<groupId>com.davidsoergel</groupId>
+		<artifactId>basepom</artifactId>
+		<version>0.99-SNAPSHOT</version>
+	</parent>
+	<inceptionYear>2009</inceptionYear>
+	<packaging>jar</packaging>
+	<issueManagement>
+		<system>Trac</system>
+		<url>http://dev.davidsoergel.com/trees/</url>
+	</issueManagement>
+	<scm>
+		<connection>scm:svn:http://svn.davidsoergel.com/repos/trees/trunk</connection>
+		<developerConnection>scm:svn:svn+ssh://svn.davidsoergel.com/home/svn/repos-ds/trees/trunk
         </developerConnection>
-    </scm>
-
-    <distributionManagement>
-        <site>
-            <id>website</id>
-            <url>scpexe://jenkins@dev.davidsoergel.com/home/build/mavensites/trees</url>
-        </site>
-    </distributionManagement>
-
-
-    <properties>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    </properties>
-
-    <repositories>
-        <repository>
-            <id>dev.davidsoergel.com</id>
-            <url>http://dev.davidsoergel.com/nexus/content/groups/public/</url>
-        </repository>
-    </repositories>
-
-
-    <dependencies>
-        <dependency>
-            <groupId>com.davidsoergel</groupId>
-            <artifactId>dsutils</artifactId>
-            <version>1.04-SNAPSHOT</version>
-        </dependency>
-        <dependency>
-            <groupId>com.davidsoergel</groupId>
-            <artifactId>dsutils</artifactId>
-            <version>1.04-SNAPSHOT</version>
-            <classifier>tests</classifier>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>com.davidsoergel</groupId>
-            <artifactId>stats</artifactId>
-            <version>0.93-SNAPSHOT</version>
-        </dependency>
-    </dependencies>
-
+	</scm>
+	<distributionManagement>
+		<site>
+			<id>website</id>
+			<url>scpexe://jenkins@dev.davidsoergel.com/home/build/mavensites/trees</url>
+		</site>
+	</distributionManagement>
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+	</properties>
+	<repositories>
+		<repository>
+			<id>dev.davidsoergel.com</id>
+			<url>http://dev.davidsoergel.com/nexus/content/groups/public</url>
+			<snapshots>
+				<enabled>false</enabled>
+			</snapshots>
+			<releases>
+				<enabled>true</enabled>
+			</releases>
+		</repository>
+		<repository>
+			<id>dev.davidsoergel.com.snapshot</id>
+			<url>http://dev.davidsoergel.com/nexus/content/repositories/snapshots</url>
+			<snapshots>
+				<enabled>true</enabled>
+			</snapshots>
+			<releases>
+				<enabled>false</enabled>
+			</releases>
+		</repository>
+	</repositories>
+	<dependencies>
+		<dependency>
+			<groupId>com.davidsoergel</groupId>
+			<artifactId>dsutils</artifactId>
+			<version>1.04-SNAPSHOT</version>
+		</dependency>
+		<dependency>
+			<groupId>com.davidsoergel</groupId>
+			<artifactId>dsutils</artifactId>
+			<version>1.04-SNAPSHOT</version>
+			<classifier>tests</classifier>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>com.davidsoergel</groupId>
+			<artifactId>stats</artifactId>
+			<version>0.93-SNAPSHOT</version>
+		</dependency>
+	</dependencies>
 </project>
-
