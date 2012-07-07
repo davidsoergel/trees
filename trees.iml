@@ -20,7 +20,7 @@
     <orderEntry type="library" name="Maven: log4j:log4j:1.2.16" level="project" />
     <orderEntry type="library" name="Maven: com.intellij:annotations:7.0.3" level="project" />
     <orderEntry type="library" scope="TEST" name="Maven: com.davidsoergel:dsutils:test-jar:tests:1.05" level="project" />
-    <orderEntry type="library" name="Maven: com.davidsoergel:stats:0.94" level="project" />
+    <orderEntry type="library" name="Maven: com.davidsoergel:stats:0.93" level="project" />
     <orderEntry type="library" scope="TEST" name="Maven: org.testng:testng:5.14.10" level="project" />
     <orderEntry type="library" scope="TEST" name="Maven: junit:junit:3.8.1" level="project" />
     <orderEntry type="library" scope="TEST" name="Maven: org.beanshell:bsh:2.0b4" level="project" />
