@@ -90,12 +90,12 @@
         <dependency>
             <groupId>com.davidsoergel</groupId>
             <artifactId>dsutils</artifactId>
-            <version>1.05</version>
+            <version>1.051</version>
         </dependency>
         <dependency>
             <groupId>com.davidsoergel</groupId>
             <artifactId>dsutils</artifactId>
-            <version>1.05</version>
+            <version>1.051</version>
             <type>test-jar</type>
             <scope>test</scope>
         </dependency>
