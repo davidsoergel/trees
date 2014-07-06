@@ -5,7 +5,7 @@ _A Java library for tree data structures and computations_
 
  * Provides data structures for weighted trees.
  * Provides various operations on trees (such as extracting subtrees, tree union and intersection, and such).
- * Additional functionality specific to phylogenetic trees is available in [phyloutils](http://dev.davidsoergel.com/trac/phyloutils/).
+ * Additional functionality specific to phylogenetic trees is available in [phyloutils](http://github.com/davidsoergel/phyloutils/).
 
 Documentation
 -------------
@@ -36,12 +36,12 @@ Download
 
 <dependencies>
 	<dependency>
-		<groupId>edu.berkeley.compbio</groupId>
+		<groupId>com.davidsoergel</groupId>
 		<artifactId>trees</artifactId>
 		<version>1.021</version>
 	</dependency>
 </dependencies>
 ```
 
-If you really want just the jar, you can get the [latest release](http://dev.davidsoergel.com/nexus/content/repositories/releases/edu/berkeley/compbio/trees/) from the Maven repo; or get the [latest stable build](http://dev.davidsoergel.com/jenkins/job/trees/lastStableBuild/edu.berkeley.compbio$trees/) from the build server.
+If you really want just the jar, you can get the [latest release](http://dev.davidsoergel.com/nexus/content/repositories/releases/com/davidsoergel/trees/) from the Maven repo; or get the [latest stable build](http://dev.davidsoergel.com/jenkins/job/trees/lastStableBuild/com.davidsoergel$trees/) from the build server.
 
