@@ -38,7 +38,7 @@ Download
 	<dependency>
 		<groupId>com.davidsoergel</groupId>
 		<artifactId>trees</artifactId>
-		<version>1.021</version>
+		<version>1.031</version>
 	</dependency>
 </dependencies>
 ```
